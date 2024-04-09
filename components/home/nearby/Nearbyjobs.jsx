@@ -5,6 +5,7 @@ import styles from "./nearbyjobs.style";
 import { COLORS } from "../../../constants";
 import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
 import useFetch from "../../../hook/useFetch";
+import { Suspense } from "react";
 
 const Nearbyjobs = () => {
   const router = useRouter();
@@ -29,13 +30,15 @@ const Nearbyjobs = () => {
         ) : error ? (
           <Text>Something went wrong</Text>
         ) : (
-          data?.map((job) => (
-            <NearbyJobCard
-              job={job}
-              key={`nearby-job-${job?.job_id}`}
-              handleNavigate={() => router.push(`/job-details/${job.job_id}`)}
-            />
-          ))
+          <Suspense fallback={<p>Loading...........</p>}>
+            {data?.map((job) => (
+              <NearbyJobCard
+                job={job}
+                key={`nearby-job-${job?.job_id}`}
+                handleNavigate={() => router.push(`/job-details/${job.job_id}`)}
+              />
+            ))}
+          </Suspense>
         )}
       </View>
     </View>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import {
   View,
   Text,
@@ -39,19 +39,21 @@ const Popularjobs = () => {
         ) : error ? (
           <Text>Something went wrong</Text>
         ) : (
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <PopularJobCard
-                item={item}
-                selectedJob={selectedJob}
-                handleCardPress={handleCardPress}
-              />
-            )}
-            keyExtractor={(item) => item?.job_id}
-            contentContainerStyle={{ columnGap: SIZES.medium }}
-            horizontal
-          />
+          <Suspense fallback={<p>Loading.......</p>}>
+            <FlatList
+              data={data}
+              renderItem={({ item }) => (
+                <PopularJobCard
+                  item={item}
+                  selectedJob={selectedJob}
+                  handleCardPress={handleCardPress}
+                />
+              )}
+              keyExtractor={(item) => item?.job_id}
+              contentContainerStyle={{ columnGap: SIZES.medium }}
+              horizontal
+            />
+          </Suspense>
         )}
       </View>
     </View>
