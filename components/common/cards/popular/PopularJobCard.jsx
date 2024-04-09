@@ -3,12 +3,9 @@ import { View, Text, Pressable, Image } from "react-native";
 import styles from "./popularjobcard.style";
 import { checkImageURL } from "../../../../utils";
 
-const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
+const PopularJobCard = ({ item, selectedJob }) => {
   return (
-    <Pressable
-      style={styles.container(selectedJob, item)}
-      onPress={() => handleCardPress(item)}
-    >
+    <Pressable style={styles.container(selectedJob, item)} onPress={() => {}}>
       <Pressable style={styles.logoContainer(selectedJob, item)}>
         <Image
           source={{
